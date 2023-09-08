@@ -1,2 +1,5 @@
-package com.beans;public class UserBean {
+package com.beans;
+public class UserBean {
+
+
 }
