@@ -1,6 +1,6 @@
 package com.beans;
 
-public class PoductBean {
+public class ProductBean {
 
     public int getpId() {
         return pId;
@@ -18,11 +18,11 @@ public class PoductBean {
         this.category = category;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -62,7 +62,17 @@ public class PoductBean {
 
     String category;
 
-    int price;
+    public String getpName() {
+        return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+
+    String pName;
+
+    Double price;
 
     String descrip;
 
