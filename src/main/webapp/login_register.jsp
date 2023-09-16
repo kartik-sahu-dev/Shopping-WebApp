@@ -19,10 +19,10 @@
             </div>
             <nav>
                 <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="product2.html">Products</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <li><a href="products.jsp">Products</a></li>
                     <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="logout">Logout</a></li>
                     <li><a href="Account.html">Account</a></li>
                 </ul>
             </nav>

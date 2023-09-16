@@ -14,11 +14,11 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
-    public void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException {
         HttpSession session = req.getSession();
         session.invalidate();
         try {
-            res.sendRedirect("");
+            res.sendRedirect("index.jsp");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

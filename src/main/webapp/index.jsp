@@ -1,3 +1,10 @@
+<%
+    if(session.getAttribute("name") == null){
+        response.sendRedirect("login_register.jsp");
+    }
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +27,10 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="index.html">Home</a></li>
-                     <li><a href="product2.html">Products</a></li>
+                     <li><a href="products.jsp">Products</a></li>
                     <li><a href="">About</a></li>
                     <li><a href="">Contact</a></li>
-                    <li><a href="Account.html">Account</a></li>
+                    <li><a href="logout">Logout</a></li>
                 </ul>
             </nav>
             <a href="card.html"><img src="image\cart.png" alt="cart" width="30px" height="30px"></a>

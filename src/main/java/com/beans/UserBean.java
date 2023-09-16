@@ -1,5 +1,6 @@
 package com.beans;
-public class UserBean {
+public   class UserBean {
     int thisIsAVariable;
 
 }
+ 

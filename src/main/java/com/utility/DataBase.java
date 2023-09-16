@@ -3,10 +3,9 @@ package com.utility;
 import java.sql.*;
 
 public class DataBase {
-    private static Connection con;
 
     public static Connection getConnection(){
-
+        Connection con = null;
 
         try {
             // Your database connection code here
@@ -20,11 +19,12 @@ public class DataBase {
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }
+
         return con;
     }
     public static void closeConnection(Connection conn){
         try {
-            if (conn != null || conn.isClosed()) {
+            if (conn != null && !conn.isClosed()){
                 conn.close();
             }
         }catch (SQLException e) {
@@ -33,7 +33,7 @@ public class DataBase {
     }
     public static void closeConnection(PreparedStatement ps){
         try {
-            if (ps != null || ps.isClosed()) {
+            if (ps != null && !ps.isClosed()) {
                 ps.close();
             }
         }catch (SQLException e) {
@@ -42,7 +42,7 @@ public class DataBase {
     }
     public static void closeConnection(ResultSet rs){
         try {
-            if (rs != null || rs.isClosed()) {
+            if (rs != null && !rs.isClosed()) {
                 rs.close();
             }
         }catch (SQLException e) {

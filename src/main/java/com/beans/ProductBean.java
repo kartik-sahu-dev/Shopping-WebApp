@@ -82,9 +82,4 @@ public class ProductBean {
 
     String pName;
 
-
-
-
-
-
 }

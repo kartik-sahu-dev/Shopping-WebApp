@@ -62,7 +62,7 @@ public class RegistrationServlet extends HttpServlet {
 
             int rowCount = pstmt.executeUpdate();
 
-            dispatcher = request.getRequestDispatcher("Account.html");
+            dispatcher = request.getRequestDispatcher("login_register.jsp");
             if(rowCount>0)
             {
                 request.setAttribute("status", "success");

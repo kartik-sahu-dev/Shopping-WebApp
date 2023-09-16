@@ -3,6 +3,7 @@ package com.Service;
 import com.beans.ProductBean;
 import com.utility.DataBase;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,5 +83,4 @@ public class ProductService {
         }
         return products;
     }
-
 }

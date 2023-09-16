@@ -50,12 +50,12 @@ public class LoginServlet extends HttpServlet {
             if(set.next()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("name", set.getString("fName"));
-                dispatcher = request.getRequestDispatcher("index.html");
+                dispatcher = request.getRequestDispatcher("index.jsp");
             }
             else
             {
                 request.setAttribute("status", "failed");
-                dispatcher = request.getRequestDispatcher("Account.html");
+                dispatcher = request.getRequestDispatcher("login_register.jsp");
             }
 
             dispatcher.forward(request,response);
