@@ -1,7 +1,5 @@
 package com.beans;
 
-
-
 public class PoductBean {
 
     public int getpId() {
@@ -62,7 +60,7 @@ public class PoductBean {
 
     int pId ;
 
-   String category;
+    String category;
 
     int price;
 
