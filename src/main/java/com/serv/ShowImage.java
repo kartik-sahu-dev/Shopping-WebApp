@@ -1,4 +1,5 @@
 package com.serv;
+import com.utility.DataBase;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -8,47 +9,45 @@ import java.sql.*;
 
 import javax.imageio.ImageIO;
 
-
-import com.utility.DataBase;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 @WebServlet("/showImage")
 public class ShowImage extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
-    public ShowImage() {
-        super();
-    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         byte[] image = null;
         ResultSet rs = null;
         PreparedStatement ps = null;
-        try {
-            String query = "select * from electronics";
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = null;
+        int pId;
+         try {
 
-            String url = "jdbc:mysql://localhost:3306/category";
-            String username = "root";
-            String password = "root";
+            String query = "select image from products where pId=?";
 
-            Connection conn = DriverManager.getConnection(url, username, password);
+            conn = DataBase.getConnection();
+            pId = Integer.parseInt(request.getParameter("pId"));
             ps = conn.prepareStatement(query);
+            ps.setInt(1,pId);
             rs = ps.executeQuery();
-            rs.next();
-            rs.getString("pId");
-            image = rs.getBytes("image");
-            conn.close();
 
-        } catch (SQLException | ClassNotFoundException e) {
+            rs.next();
+            image = rs.getBytes("image");
+
+         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            DataBase.closeConnection(conn);
+            DataBase.closeConnection(rs);
+            DataBase.closeConnection(ps);
+
         }
 
         if (image == null) {
-            File fnew = new File(request.getServletContext().getRealPath("images/noimage.jpg"));
+            File fnew = new File(request.getServletContext().getRealPath("image/noimage.jpg"));
             BufferedImage originalImage = ImageIO.read(fnew);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(originalImage, "jpg", baos);
