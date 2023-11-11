@@ -4,6 +4,18 @@
     }
 %>
 
+<!-- For Validation -->
+<%
+String name = (String) session.getAttribute("name");
+if (name != null) {
+%>
+<div class="welcome-message">
+    <p>Welcome, <%= name %>! You are now logged in.</p>
+</div>
+<%
+}
+%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,12 +43,13 @@
                     <li><a href="">About</a></li>
                     <li><a href="">Contact</a></li>
                     <li><a href="logout">Logout</a></li>
+                    <li><a href="rough.jsp">All Product</a></li>
                 </ul>
-            </nav>
+             </nav>
             <a href="card.html"><img src="image\cart.png" alt="cart" width="30px" height="30px"></a>
             <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
             
-           </div> 
+        </div>
             
           
            <div class="row">
@@ -49,7 +62,7 @@
               <a href="" class="btn">Explore Now <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="col-2">
-                <img src="image\image1.png" alt="IMAGE">
+
             </div>
            </div>
     </div>
