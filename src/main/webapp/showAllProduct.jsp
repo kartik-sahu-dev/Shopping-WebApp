@@ -1,15 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.Service.ProductService"%>
+<%@ page import="com.beans.ProductBean"%>
+<%@ page import="java.util.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-
-
     <style>
         #myCarousel .carousel-item .mask {
             position: absolute;
@@ -256,7 +257,7 @@
         @keyframes slideInRight {
             from {
                 -webkit-transform: translate3d(100%, 0, 0);
-                transform: translate3d(100%, 0, 0);
+                transform: translated(100%, 0, 0);
                 visibility: visible
             }
 
@@ -270,92 +271,187 @@
             -webkit-animation-name: slideInRight;
             animation-name: slideInRight
         }
+
+
+
+
+        /* Add a border style */
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Increase the height of the product div */
+        .product-container {
+            height: auto;
+            background: white;
+            display: flex; /* Use flexbox to align elements horizontally */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center !important; /* Center items horizontally with !important to override external styles */
+        }
+
+        /* Style for product ID and Name */
+        .product-info {
+            font-weight: bold;
+        }
+
+        /* Style for product description to control overflow */
+        .product-description {
+            max-height: 60px; /* Set a maximum height for the description */
+            overflow: hidden; /* Hide overflowing content */
+            text-overflow: ellipsis; /* Add ellipsis (...) for truncated text */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        /* Style for price and its value */
+        .leftAlign {
+           padding-right: 120px !important; /* Align price to the left with !important */
+<!--               margin-left: 0px !important;-->
+<!--             padding-left: 0px !important;-->
+        }
+
+        .rightAlign {
+            padding-left: 120px !important; /* Align price value to the right with !important */
+<!--                margin-right: 0px !important;-->
+<!--                padding-right: 0px !important;-->
+        }
+
+        /* Custom class to ensure consistent product container height */
+        .product-container img {
+            height: 250px; /* Set a fixed height for all images */
+            width: auto; /* Allow the width to adjust proportionally */
+        }
+        .showProduct{
+
+        }
     </style>
-
+    <title>All Products</title>
 </head>
-
 <body>
-    <!-- Start of Navigation -->
-    <div class="header">
-        <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <a href="index.html"><img src="image\logo.png" alt="LOGO" width="125px"></a>
-                </div>
-                <nav>
-                    <ul id="MenuItems">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.jsp">Products</a></li>
+
+<!-- Start of Navigation -->
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="image\logo.png" alt="LOGO" width="125px"></a>
+            </div>
+             <nav>
+                 <ul id="MenuItems">
+                      <li><a href="index.html">Home</a></li>
+                       <li><a href="products.jsp">Products</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
                         <li><a href="logout">Logout</a></li>
-                        <li><a href="rough.jsp">All Product</a></li>
-                    </ul>
-                </nav>
-                <a href="card.html"><img src="image\cart.png" alt="cart" width="30px" height="30px"></a>
-                <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
+                       <li><a href="showAllProduct.jsp">All Product</a></li>
+                 </ul>
+             </nav>
+            <a href="card.html"><img src="image\cart.png" alt="cart" width="30px" height="30px"></a>
+            <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
 
+        </div>
+    </div>
+
+</div>
+<!-- End of Navigation -->
+
+<!-- Start of Banner -->
+<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="mask flex-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 col-12 order-md-1 order-2">
+                            <h4>iPhone XS</h4>
+                            <p>This has many features that are simply awesome. The phone comes with a 3.50-inch
+                                display with a resolution of 320x480 pixels.</p> <br> <a href="#">BUY NOW</a>
+                        </div>
+                        <div class="col-md-5 col-12 order-md-2 order-1"><img src="image/category-3.jpg"
+                                                                             class="mx-auto" alt="slide"></div>
+                    </div>
+                </div>
             </div>
         </div>
-
-    </div>
-    <!-- End of Navigation -->
-
-
-    <!-- Start of Banner -->
-    <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="mask flex-center">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-7 col-12 order-md-1 order-2">
-                                <h4>iPhone XS</h4>
-                                <p>This has many features that are simply awesome. The phone comes with a 3.50-inch
-                                    display with a resolution of 320x480 pixels.</p> <br> <a href="#">BUY NOW</a>
-                            </div>
-                            <div class="col-md-5 col-12 order-md-2 order-1"><img src="image/category-3.jpg"
-                                    class="mx-auto" alt="slide"></div>
+        <div class="carousel-item">
+            <div class="mask flex-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 col-12 order-md-1 order-2">
+                            <h4>HP Pavillion</h4>
+                            <p>This has many features that are simply awesome.The phone comes with a 3.50-inch
+                                display with a resolution of 320x480 pixels.</p> <br> <a href="#">BUY NOW</a>
                         </div>
+                        <div class="col-md-5 col-12 order-md-2 order-1"><img src="image/gallery-2.jpg"
+                                                                             class="mx-auto" alt="slide"></div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="mask flex-center">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-7 col-12 order-md-1 order-2">
-                                <h4>HP Pavillion</h4>
-                                <p>This has many features that are simply awesome.The phone comes with a 3.50-inch
-                                    display with a resolution of 320x480 pixels.</p> <br> <a href="#">BUY NOW</a>
-                            </div>
-                            <div class="col-md-5 col-12 order-md-2 order-1"><img src="image/gallery-2.jpg"
-                                    class="mx-auto" alt="slide"></div>
-                        </div>
-                    </div>
+        </div>
+    </div> <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev"> <span
+        class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Back</span> </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next"> <span
+            class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
+</div>
+<!-- End of Banner -->
+
+<div class="container showProduct">
+    <%
+    ProductService prd = new ProductService();
+    List<ProductBean> list = prd.getAllProduct();
+    %>
+
+    <!-- Show Categories -->
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Add code for displaying categories if needed -->
+        </div>
+        <div class="col-md-8">
+            <h1>Number of Products is: <%= list.size() %></h1>
+        </div>
+    </div>
+
+    <!-- Show Products -->
+    <div class="row">
+        <%
+        for (ProductBean product : list) {
+        %>
+        <div class="col-md-4">
+            <div class="product product-container">
+                <img src="showImage?pId=<%= product.getpId() %>" class="img-fluid" alt="<%= product.getpName() %>">
+                <p class="product-info"><%= product.getpName() %></p>
+                <p class="product-description"><%= product.getDescrip() %></p>
+                <div class="d-flex justify-content-between product-price">
+                    <div class="product-info leftAlign">Price:</div><div class="product-info rightAlign"><%= product.getPrice() %></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="product-info leftAlign">Stock:</div><div class="product-info rightAlign"><%= product.getStock() %></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="product-info leftAlign">Likes:</div><div class="product-info rightAlign"><%= product.getLikes() %></div>
                 </div>
             </div>
-        </div> <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev"> <span
-                class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Back</span> </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next"> <span
-                class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
+        </div>
+        <%
+        }
+        %>
     </div>
-    <!-- End of Banner -->
+</div>
 
 
+<script>
+    $(document).ready(function () {
 
-    <script>
-        $(document).ready(function () {
+        $('#myCarousel').carousel({
+            interval: 3000,
+        })
 
-            $('#myCarousel').carousel({
-                interval: 3000,
-            })
-
-        });
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    });
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
-
 </html>

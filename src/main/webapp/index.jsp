@@ -43,7 +43,7 @@ if (name != null) {
                     <li><a href="">About</a></li>
                     <li><a href="">Contact</a></li>
                     <li><a href="logout">Logout</a></li>
-                    <li><a href="rough.jsp">All Product</a></li>
+                    <li><a href="showAllProduct.jsp">All Product</a></li>
                 </ul>
              </nav>
             <a href="card.html"><img src="image\cart.png" alt="cart" width="30px" height="30px"></a>

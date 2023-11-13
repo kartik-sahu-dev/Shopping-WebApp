@@ -24,15 +24,16 @@
             <div class="logo">
                 <img src="image\logo.png" alt="LOGO" width="125px">
             </div>
-            <nav>
-                <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="product2.html">Products</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
-                    <li><a href="Account.html">Account</a></li>
-                </ul>
-            </nav>
+             <nav>
+                            <ul id="MenuItems">
+                                <li><a href="index.html">Home</a></li>
+                                 <li><a href="products.jsp">Products</a></li>
+                                <li><a href="">About</a></li>
+                                <li><a href="">Contact</a></li>
+                                <li><a href="logout">Logout</a></li>
+                                <li><a href="showAllProduct.jsp">All Product</a></li>
+                            </ul>
+                         </nav>
             <img src="image\cart.png" alt="cart" width="30px" height="30px">
             <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
             
