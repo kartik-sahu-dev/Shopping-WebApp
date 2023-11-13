@@ -20,7 +20,7 @@
                 <li><a href="products.jsp">Products</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="logout">Logout</a></li>
-                <li><a href="Account.html">Account</a></li>
+                <li><a href="adminHome.jsp">Admin</a></li>
             </ul>
         </nav>
         <img src="image\cart.png" alt="cart" width="30px" height="30px">

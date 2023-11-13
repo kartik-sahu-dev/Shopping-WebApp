@@ -2,6 +2,11 @@
 <%@ page import="com.Service.ProductService"%>
 <%@ page import="com.beans.ProductBean"%>
 <%@ page import="java.util.*"%>
+<%
+if(session.getAttribute("name") == null){
+response.sendRedirect("login_register.jsp");
+}
+%>
 
 <!DOCTYPE html>
 <html lang="en">
