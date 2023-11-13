@@ -1,397 +1,437 @@
-<%
-    if(session.getAttribute("name") == null){
-        response.sendRedirect("login_register.jsp");
-    }
-%>
-
-<!-- For Validation -->
-<%
-String name = (String) session.getAttribute("name");
-if (name != null) {
-%>
-<div class="welcome-message">
-    <p>Welcome, <%= name %>! You are now logged in.</p>
-</div>
-<%
-}
-%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.Service.ProductService"%>
+<%@ page import="com.beans.ProductBean"%>
+<%@ page import="java.util.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping | Ecommerce Website Design </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        #myCarousel .carousel-item .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-attachment: fixed
+        }
+
+        #myCarousel h4 {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #FFF;
+            line-height: 100%;
+            letter-spacing: 0.5px;
+            font-weight: 600
+        }
+
+        #myCarousel p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #d5d5d5
+        }
+
+        #myCarousel .carousel-item a {
+            background: #FF0000;
+            font-size: 14px;
+            color: #FFF;
+            padding: 13px 32px;
+            display: inline-block
+        }
+
+        #myCarousel .carousel-item a:hover {
+            background: #FF0000;
+            text-decoration: none
+        }
+
+        #myCarousel .carousel-item h4 {
+            -webkit-animation-name: fadeInLeft;
+            animation-name: fadeInLeft
+        }
+
+        #myCarousel .carousel-item p {
+            -webkit-animation-name: slideInRight;
+            animation-name: slideInRight
+        }
+
+        #myCarousel .carousel-item a {
+            -webkit-animation-name: fadeInUp;
+            animation-name: fadeInUp
+        }
+
+        #myCarousel .carousel-item .mask img {
+            -webkit-animation-name: slideInRight;
+            animation-name: slideInRight;
+            display: block;
+            height: auto;
+            max-width: 100%
+        }
+
+        #myCarousel h4,
+        #myCarousel p,
+        #myCarousel a,
+        #myCarousel .carousel-item .mask img {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1.2s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both
+        }
+
+        #myCarousel .container {
+            max-width: 1430px
+        }
+
+        #myCarousel .carousel-item {
+            height: 100%;
+            min-height: 550px
+        }
+
+        #myCarousel {
+            position: relative;
+            z-index: 1;
+            background: #000;
+            background-size: cover
+        }
+
+        .carousel-control-next,
+        .carousel-control-prev {
+            height: 40px;
+            width: 40px;
+            padding: 12px;
+            top: 50%;
+            bottom: auto;
+            transform: translateY(-50%);
+            background-color: #FF0000
+        }
+
+        .carousel-item {
+            position: relative;
+            display: none;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            width: 100%;
+            transition: -webkit-transform .6s ease;
+            transition: transform .6s ease;
+            transition: transform .6s ease, -webkit-transform .6s ease;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000px;
+            perspective: 1000px
+        }
+
+        .carousel-fade .carousel-item {
+            opacity: 0;
+            -webkit-transition-duration: .6s;
+            transition-duration: .6s;
+            -webkit-transition-property: opacity;
+            transition-property: opacity
+        }
+
+        .carousel-fade .carousel-item-next.carousel-item-left,
+        .carousel-fade .carousel-item-prev.carousel-item-right,
+        .carousel-fade .carousel-item.active {
+            opacity: 1
+        }
+
+        .carousel-fade .carousel-item-left.active,
+        .carousel-fade .carousel-item-right.active {
+            opacity: 0
+        }
+
+        .carousel-fade .carousel-item-left.active,
+        .carousel-fade .carousel-item-next,
+        .carousel-fade .carousel-item-prev,
+        .carousel-fade .carousel-item-prev.active,
+        .carousel-fade .carousel-item.active {
+            -webkit-transform: translateX(0);
+            -ms-transform: translateX(0);
+            transform: translateX(0)
+        }
+
+        @supports (transform-style:preserve-3d) {
+
+            .carousel-fade .carousel-item-left.active,
+            .carousel-fade .carousel-item-next,
+            .carousel-fade .carousel-item-prev,
+            .carousel-fade .carousel-item-prev.active,
+            .carousel-fade .carousel-item.active {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        .carousel-fade .carousel-item-left.active,
+        .carousel-fade .carousel-item-next,
+        .carousel-fade .carousel-item-prev,
+        .carousel-fade .carousel-item-prev.active,
+        .carousel-fade .carousel-item.active {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0)
+        }
+
+        @-webkit-keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(-100%, 0, 0);
+                transform: translate3d(-100%, 0, 0)
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(-100%, 0, 0);
+                transform: translate3d(-100%, 0, 0)
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        .fadeInLeft {
+            -webkit-animation-name: fadeInLeft;
+            animation-name: fadeInLeft
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 100%, 0);
+                transform: translate3d(0, 100%, 0)
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 100%, 0);
+                transform: translate3d(0, 100%, 0)
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        .fadeInUp {
+            -webkit-animation-name: fadeInUp;
+            animation-name: fadeInUp
+        }
+
+        @-webkit-keyframes slideInRight {
+            from {
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translated(100%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0)
+            }
+        }
+
+        .slideInRight {
+            -webkit-animation-name: slideInRight;
+            animation-name: slideInRight
+        }
+
+
+
+
+        /* Add a border style */
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Increase the height of the product div */
+        .product-container {
+            height: auto;
+            background: white;
+            display: flex; /* Use flexbox to align elements horizontally */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center !important; /* Center items horizontally with !important to override external styles */
+        }
+
+        /* Style for product ID and Name */
+        .product-info {
+            font-weight: bold;
+        }
+
+        /* Style for product description to control overflow */
+        .product-description {
+            max-height: 60px; /* Set a maximum height for the description */
+            overflow: hidden; /* Hide overflowing content */
+            text-overflow: ellipsis; /* Add ellipsis (...) for truncated text */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        /* Style for price and its value */
+        .leftAlign {
+           padding-right: 120px !important; /* Align price to the left with !important */
+<!--               margin-left: 0px !important;-->
+<!--             padding-left: 0px !important;-->
+        }
+
+        .rightAlign {
+            padding-left: 120px !important; /* Align price value to the right with !important */
+<!--                margin-right: 0px !important;-->
+<!--                padding-right: 0px !important;-->
+        }
+
+        /* Custom class to ensure consistent product container height */
+        .product-container img {
+            height: 250px; /* Set a fixed height for all images */
+            width: auto; /* Allow the width to adjust proportionally */
+        }
+        .showProduct{
+
+        }
+    </style>
+    <title>All Products</title>
 </head>
 <body>
+
+<!-- Start of Navigation -->
 <div class="header">
-    <div class="container">
-        <div class="navbar">
-            <div class="logo">
+     <%@include file="navbar.jsp"%>
+</div>
+<!-- End of Navigation -->
 
-            </div>
-            <nav>
-                <ul id="MenuItems">
-                    <li><a href="index.html">Home</a></li>
-                     <li><a href="products.jsp">Products</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
-                    <li><a href="logout">Logout</a></li>
-                    <li><a href="showAllProduct.jsp">All Product</a></li>
-                </ul>
-             </nav>
-            <a href="card.html"><img src="image\cart.png" alt="cart" width="30px" height="30px"></a>
-            <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
-            
-        </div>
-            
-          
-           <div class="row">
-            <div class="col-2">
-              <h1>Give Your Workout <br>A New Style!</h1>
-              <p>Success isn't always about greatnes. Its about 
-                consistency. Consistent <br>hard work gains success. Greatness
-                will come.
-              </p>
-              <a href="" class="btn">Explore Now <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-            <div class="col-2">
-
-            </div>
-           </div>
-    </div>
-</div> 
-   <!------- featured categories--------->
-   <div class="categories">
-    <div class="small-container">
-        <div class="row">
-            <div class="col-3">
-                <img src="image\category-1.jpg" >
-            </div>
-            <div class="col-3">
-                <img src="image\category-2.jpg" >
-            </div>
-            <div class="col-3">
-                <img src="image\category-3.jpg" >
+<!-- Start of Banner -->
+<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="mask flex-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 col-12 order-md-1 order-2">
+                            <h4>iPhone XS</h4>
+                            <p>This has many features that are simply awesome. The phone comes with a 3.50-inch
+                                display with a resolution of 320x480 pixels.</p> <br> <a href="#">BUY NOW</a>
+                        </div>
+                        <div class="col-md-5 col-12 order-md-2 order-1"><img src="image/category-3.jpg"
+                                                                             class="mx-auto" alt="slide"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    
-   </div>
-
-    <!------- featured product--------->
-    <div class="small-container">
-        <h2 class="title">Featured Products</h2>
-        <div class="row">
-            <div class="col-4">
-                <a href="productdetail.html"><img src="image\product-1.jpg"></a>
-                <a href="productdetail.html"></a><h4>Red Printed T-Shirt</h4></a>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
+        <div class="carousel-item">
+            <div class="mask flex-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7 col-12 order-md-1 order-2">
+                            <h4>HP Pavillion</h4>
+                            <p>This has many features that are simply awesome.The phone comes with a 3.50-inch
+                                display with a resolution of 320x480 pixels.</p> <br> <a href="#">BUY NOW</a>
+                        </div>
+                        <div class="col-md-5 col-12 order-md-2 order-1"><img src="image/gallery-2.jpg"
+                                                                             class="mx-auto" alt="slide"></div>
+                    </div>
                 </div>
-                <p>$50.00</p>
             </div>
-            <div class="col-4">
-                <img src="image\product-2.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$60.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-3.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$70.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-4.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$80.00</p>
-            </div>
-
         </div>
-        <h2 class="title">Latest Products</h2>
-        <div class="row">
-            <div class="col-4">
-                <img src="image\product-5.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-6.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$60.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-7.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$70.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-8.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$80.00</p>
-            </div>
+    </div> <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev"> <span
+        class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Back</span> </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next"> <span
+            class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
+</div>
+<!-- End of Banner -->
 
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <img src="image\product-9.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-10.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$60.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-11.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$70.00</p>
-            </div>
-            <div class="col-4">
-                <img src="image\product-12.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div>
-                <p>$80.00</p>
-            </div>
+<div class="container showProduct">
+    <%
+    ProductService prd = new ProductService();
+    List<ProductBean> list = prd.getAllProduct();
+    %>
 
+    <!-- Show Categories -->
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Add code for displaying categories if needed -->
         </div>
-    </div>   
-  <!--------offer----------> 
-  <div class="offer">
-    <div class="small-container">
-        <div class="row">
-            <div class="col-2">
-                <img src="image\exclusive.png" class="offer-img" >
-            </div>
-            <div class="col-2">
-                <h1>Smart Band 4</h1>
-                <small> The mi smart band 4 features</small>
-                <a href="" class="btn">Buy Now <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
+        <div class="col-md-8">
+            <h1>Number of Products is: <%= list.size() %></h1>
         </div>
     </div>
-  </div>
 
-
-
-  <!--------testimonial-->
-  <div class="testimonial">
-    <div class="small-container">
-        <div class="row">
-            <div class="col-3">
-                <i class="fa-solid fa-quote-left"></i>
-                <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, quas, eveniet reprehenderit earum qui beatae deserunt in sapiente odit numquam eos recusandae vel, laboriosam totam maxime dolorum odio quia blanditiis quis quod architecto? Repellat recusandae consequuntur veritatis quas saepe consequatur, inventore nemo nihil temporibus laborum nulla, harum assumenda quam? In.</p>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div> 
-                <img src="image\user-1.png" >
-                <h3>Sean Parker</h3>
-                
-            </div>
-            <div class="col-3">
-                <i class="fa-solid fa-quote-left"></i>
-                <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, quas, eveniet reprehenderit earum qui beatae deserunt in sapiente odit numquam eos recusandae vel, laboriosam totam maxime dolorum odio quia blanditiis quis quod architecto? Repellat recusandae consequuntur veritatis quas saepe consequatur, inventore nemo nihil temporibus laborum nulla, harum assumenda quam? In.</p>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div> 
-                <img src="image\user-2.png" >
-                <h3>Mick Smith </h3>
-                
-            </div>
-            <div class="col-3">
-                <i class="fa-solid fa-quote-left"></i>
-                <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, quas, eveniet reprehenderit earum qui beatae deserunt in sapiente odit numquam eos recusandae vel, laboriosam totam maxime dolorum odio quia blanditiis quis quod architecto? Repellat recusandae consequuntur veritatis quas saepe consequatur, inventore nemo nihil temporibus laborum nulla, harum assumenda quam? In.</p>
-                <div class="rating">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-regular fa-star"></i>
-                </div> 
-                <img src="image\user-3.png" >
-                <h3>Marble joe</h3>
-                
+    <!-- Show Products -->
+    <div class="row">
+        <%
+        for (ProductBean product : list) {
+        %>
+        <div class="col-md-4">
+            <div class="product product-container">
+                <img src="showImage?pId=<%= product.getpId() %>" class="img-fluid" alt="<%= product.getpName() %>">
+                <p class="product-info"><%= product.getpName() %></p>
+                <p class="product-description"><%= product.getDescrip() %></p>
+                <div class="d-flex justify-content-between product-price">
+                    <div class="product-info leftAlign">Price:</div><div class="product-info rightAlign"><%= product.getPrice() %></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="product-info leftAlign">Stock:</div><div class="product-info rightAlign"><%= product.getQuantity() %></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="product-info leftAlign">Likes:</div><div class="product-info rightAlign"><%= product.getLikes() %></div>
+                </div>
             </div>
         </div>
+        <%
+        }
+        %>
     </div>
-  </div>
+</div>
 
-  <!--------brands-->
-  <div class="brands">
-    <div class="small-container">
-        <div class="row">
- v         <div class="col-5">
-             <img src="image\logo-godrej.png" > 
-           </div>
-           <div class="col-5">
-            <img src="image\logo-oppo.png" > 
-          </div>
-          <div class="col-5">
-            <img src="image\logo-coca-cola.png" > 
-          </div>
-          <div class="col-5">
-            <img src="image\logo-paypal.png" > 
-          </div>
-          <div class="col-5">
-            <img src="image\logo-philips.png" > 
-          </div>
-        </div>
-    </div>
-  </div>
 
-  <!-------footer-->
-  <div class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="footer-col-1">
-                <h3> Download Our App</h3>
-                <p> Download App for Android and ios mobile phone</p>
-                 <div class="app-logo">
-                    <img src="image\play-store.png" >
-                    <img src="image\app-store.png" >
-                 </div>
-            </div>
-            <div class="footer-col-2">
-                <img src="image\logo-white.png" >
-                <p> Our Purpose Is To Sustainably Make Pleasure And
-                    Benefits of Sports Accessible to the Many
-                </p>
-            </div>
-            <div class="footer-col-3">
-                <h3> Usefull Link</h3>
-                <ul>
-                    <li>Coupons</li>
-                    <li>Blogpost</li>
-                    <li>Return policy</li>
-                    <li>Join Affiliate</li>
-                </ul>
-            </div>
-            <div class="footer-col-4">
-                <h3> Follow us</h3>
-                <ul>
-                    <li>Facebook</li>
-                    <li>Twitter</li>
-                    <li>Instagram</li>
-                    <li>Youtube</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <p class="copyright">copyright 2023 - Easy tutorials </p>
-    </div>
-  </div>
+<script>
+    $(document).ready(function () {
 
- <!------------------js for toggle menu---------->
-  <script>
-    var  MenuItems = document.getElementById("MenuItems");
-    MenuItems.style.maxHeight="0px";
+        $('#myCarousel').carousel({
+            interval: 3000,
+        })
 
-    function menutoggle()
-    if(MenuItems.style.maxHeight  ="0px")
-    {
-        MenuItems.style.maxHeight="200px";
-    }
-    
-    else
-    {
-        MenuItems.style.maxHeight="0px";
-    }
-  </script>
+    });
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>
