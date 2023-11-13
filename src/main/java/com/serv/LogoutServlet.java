@@ -18,7 +18,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.invalidate();
         try {
-            res.sendRedirect("index.jsp");
+            res.sendRedirect("login_register.jsp");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
