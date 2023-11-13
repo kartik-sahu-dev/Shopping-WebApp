@@ -34,7 +34,7 @@ if (name != null) {
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <a href="index.html"><img src="image\logo.png" alt="LOGO" width="125px"></a>
+
             </div>
             <nav>
                 <ul id="MenuItems">
