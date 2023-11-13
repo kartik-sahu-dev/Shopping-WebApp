@@ -3,7 +3,6 @@ package com.Service;
 import com.beans.ProductBean;
 import com.utility.DataBase;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,38 @@ import java.util.List;
 
 public class ProductService {
 
+    public ProductBean getAProduct(int pId){
+        ProductBean product = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = DataBase.getConnection();
+
+        try {
+
+            ps = con.prepareStatement("select * from products where pId=?");
+            ps.setInt(1,pId);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                product = new ProductBean();
+                product.setpId(rs.getInt(1));
+                product.setCategory(rs.getString(2));
+                product.setpName(rs.getString(3));
+                product.setPrice(rs.getDouble(4));
+                product.setDescrip(rs.getString(5));
+                product.setQuantity(rs.getInt(6));
+                product.setLikes(rs.getInt(7));
+                product.setImage(rs.getBytes(8));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            DataBase.closeConnection(con);
+            DataBase.closeConnection(ps);
+            DataBase.closeConnection(rs);
+
+        }
+        return product;
+    }
     public List<ProductBean> getAllProduct(){
         List<ProductBean> products = new ArrayList<>();
         PreparedStatement ps = null;
@@ -30,7 +61,7 @@ public class ProductService {
                 product.setpName(rs.getString(3));
                 product.setPrice(rs.getDouble(4));
                 product.setDescrip(rs.getString(5));
-                product.setStock(rs.getInt(6));
+                product.setQuantity(rs.getInt(6));
                 product.setLikes(rs.getInt(7));
                 product.setImage(rs.getBytes(8));
 
@@ -66,7 +97,7 @@ public class ProductService {
                 product.setpName(rs.getString(3));
                 product.setPrice(rs.getDouble(4));
                 product.setDescrip(rs.getString(5));
-                product.setStock(rs.getInt(6));
+                product.setQuantity(rs.getInt(6));
                 product.setLikes(rs.getInt(7));
                 product.setImage(rs.getBytes(8));
 

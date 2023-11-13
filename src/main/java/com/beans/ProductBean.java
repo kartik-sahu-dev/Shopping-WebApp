@@ -42,12 +42,12 @@ public class ProductBean {
         this.descrip = descrip;
     }
 
-    public int getStock() {
-        return stock;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getLikes() {
@@ -74,7 +74,7 @@ public class ProductBean {
 
     String descrip;
 
-    int stock;
+    int quantity;
 
     int likes;
 

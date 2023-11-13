@@ -9,14 +9,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-@WebServlet("/addCategory")
-public class AddCategory extends HttpServlet {
-    Connection con = null;
+import java.util.logging.Logger;
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) {
+@WebServlet("/addCategory")
+public class AddCategoryServlet extends HttpServlet {
+    Connection con = null;
+    private static final Logger logger = Logger.getLogger(AddCategoryServlet.class.getName());
+
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        logger.info("Entering doPost method");
+
+        System.out.println("heelo");
         String categoryName;
         String categoryDesc;
         int rowInserted;
@@ -24,6 +32,8 @@ public class AddCategory extends HttpServlet {
 
         categoryName = req.getParameter("categoryName");
         categoryDesc = req.getParameter("categoryDesc");
+        System.out.println(categoryName);
+
 
         con = DataBase.getConnection();
         String stmt = "insert into category (categoryName,categoryDesc) values (?,?);";
@@ -44,13 +54,16 @@ public class AddCategory extends HttpServlet {
             DataBase.closeConnection(con);
             DataBase.closeConnection(ps);
         }
-        RequestDispatcher rd = req.getRequestDispatcher("adminHome.jsp");
-        try {
-            rd.forward(req,res);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        RequestDispatcher rd = req.getRequestDispatcher("adminHome.jsp");
+//        try {
+//            rd.forward(req,res);
+//        } catch (ServletException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        res.sendRedirect("adminHome.jsp");
+        logger.info("Exiting doPost method");
+
     }
 }

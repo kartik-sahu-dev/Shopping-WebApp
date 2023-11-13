@@ -21,7 +21,7 @@
 <body>
 <div class="header">
      <p style="color: green; font-size: 24px; font-weight: bold; " class="text-center">Products Stock</p>
-    <div class="container-fluid">
+    <div class="container">
         <div class="table-responsive ">
             <table class="table table-hover table-sm">
                 <thead
@@ -71,8 +71,7 @@
                         </td>
                         <td>
                             <form method="post">
-                                <button type="submit"
-                                        formaction=" "
+                                <button type="submit" formaction="deleteProduct?pId=<%=product.getpId()%>"
                                         class="btn btn-danger">Remove</button>
                             </form>
                         </td>

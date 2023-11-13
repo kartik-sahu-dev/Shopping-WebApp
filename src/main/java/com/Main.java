@@ -1,5 +1,7 @@
 package com;
 
+import com.Service.CartService;
+import com.Service.Category;
 import com.Service.ProductService;
 import com.beans.ProductBean;
 
@@ -9,13 +11,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        ProductService ps = new ProductService();
-        List<ProductBean> products = ps.getAllProductByCategory("smartphone");
-        for(ProductBean p : products) {
+//        CartService cartService = new CartService();
+//        System.out.println(cartService.getCartItemCount(1,2));
+//        cartService.removeProductFromCart(1,2);
 
-            System.out.println(p.getCategory());
-            System.out.println(p.getpId());
-            System.out.println(p.getPrice());
+        Category category = new Category();
+        List<String> cat = category.getAllCategories();
+        for(String s : cat){
+            System.out.println(s);
         }
     }
 }

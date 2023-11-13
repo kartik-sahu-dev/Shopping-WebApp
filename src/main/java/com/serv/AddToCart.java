@@ -1,2 +1,4 @@
-package com.serv;public class AddToCart {
+package com.serv;
+
+public class AddToCart {
 }

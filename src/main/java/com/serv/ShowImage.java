@@ -53,10 +53,11 @@ public class ShowImage extends HttpServlet {
             ImageIO.write(originalImage, "jpg", baos);
             image = baos.toByteArray();
         }
-
-        ServletOutputStream sos = null;
-
-        sos = response.getOutputStream();
+        /*
+        * ServletOutputStream is an abstract class
+        * It sends binary data to client
+        * */
+        ServletOutputStream sos = response.getOutputStream();
 
         sos.write(image);
 

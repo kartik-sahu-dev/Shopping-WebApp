@@ -22,7 +22,7 @@ import java.sql.SQLException;
 public class AddProduct extends HttpServlet {
     Connection con = null;
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res){
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String pName,category,descrip;
         Double price;
         int stock,rowInserted;
@@ -48,7 +48,7 @@ public class AddProduct extends HttpServlet {
             }
 
             con = DataBase.getConnection();
-            String stmt = "insert into products (category,pName,price,descrip,stock,image) values (?,?,?,?,?,?)";
+            String stmt = "insert into products (category,pName,price,descrip,stock,image) values (?,?,?,?,?,?);";
 
             try{
                 ps = con.prepareStatement(stmt);
@@ -76,13 +76,14 @@ public class AddProduct extends HttpServlet {
             DataBase.closeConnection(ps);
 
         }
-        RequestDispatcher rd = req.getRequestDispatcher("adminHome.jsp");
-        try {
-            rd.forward(req,res);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        RequestDispatcher rd = req.getRequestDispatcher("adminHome.jsp");
+//        try {
+//            rd.forward(req,res);
+//        } catch (ServletException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        res.sendRedirect("adminHome.jsp");
     }
 }
