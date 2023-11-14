@@ -11,27 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="header">
+<%@include file="navbar.jsp"%>
 
-    <div class="container">
-        <div class="navbar">
-            <div class="logo">
-                <img src="image\logo.png" alt="LOGO" width="125px">
-            </div>
-            <nav>
-                <ul id="MenuItems">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact</a></li>
-                    <li><a href="">Account</a></li>
-                </ul>
-            </nav>
-            <img src="image\cart.png" alt="cart" width="30px" height="30px">
-            <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
-            
-           </div> 
-            
-    </div>
+
 
  <!---- cart item details---->
     <div class="small-container  cart-page">
@@ -158,6 +141,7 @@
         <p class="copyright">copyright 2023 - Easy tutorials </p>
     </div>
   </div>
+</div>
 
  <!------------------js for toggle menu---------->
   <script>

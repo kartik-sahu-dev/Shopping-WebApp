@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="header">
+        <%@include file="adminNavbar.jsp"%>
         <div class="container">
 <!--            <div class="navbar">-->
 <!--                <div class="logo">-->
@@ -25,9 +26,9 @@
 <!--            </div>-->
 
             <br>
-            <div class="container admin">
+            <div class="container admin ">
                 <!--first row-->
-                <div class="row mt-3">
+                <div class="row mt-2 ">
                     <!--first column-->
                     <div class="col-4">
                         <div class="card">
@@ -91,6 +92,8 @@
 
                 </div>
             </div>
+
+
 
             <!-- Modal -->
             <div class="modal fade" id="add-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -216,7 +219,8 @@
             </div>
         </div>
     </div>
-
+    <!--footer-->
+    <%@include file="footer.html"%>
 
 
         <!----end Product Model-->

@@ -20,6 +20,7 @@
 </head>
 <body>
 <div class="header">
+    <%@include file="adminNavbar.jsp" %>
      <p style="color: green; font-size: 24px; font-weight: bold; " class="text-center">Products Stock</p>
     <div class="container">
         <div class="table-responsive ">
@@ -60,7 +61,7 @@
                         <td><%=name%></td>
                         <td><%=product.getCategory()%></td>
                         <td><%=product.getPrice()%></td>
-    <!--                    <td> sold item</td>-->
+                         <!-- <td> sold item</td> -->
                         <td><%=product.getQuantity()%></td>
                         <td>
                             <form method="post">
@@ -97,5 +98,7 @@
         </div>
     </div>`
 </div>
+<!--footer-->
+<%@include file="footer.html"%>
 </body>
 </html>

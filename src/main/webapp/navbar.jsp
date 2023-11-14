@@ -29,7 +29,9 @@
                         <li><a href="adminHome.jsp">Admin</a></li>
                     </ul>
                 </nav>
-                <img src="image\cart.png" alt="cart" width="30px" height="30px">
+                <a href="userCart.jsp">
+                    <img src="image\cart.png" alt="cart" width="30px" height="30px" >
+                </a>
                 <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
         </div>
