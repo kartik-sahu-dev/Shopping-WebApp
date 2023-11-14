@@ -33,7 +33,7 @@
                             <p>Red Printed Tshirt</p>
                             <small>Price: $50.00</small>
                             <br>
-                            <a href="">Remove</a>
+                            <a href="removeProduct?cartId=1&pId=1">Remove</a>
                         </div>
                     </div>
                 </td>
