@@ -43,7 +43,7 @@ public class CartService {
         List<CartBean> cartProducts = new ArrayList<>();
         Connection connection = DataBase.getConnection();
         PreparedStatement preparedStatement = null;
-        String stmt = "SELECT cp.pId, cp.cartId, cp.quantity, p.price, p.pName FROM cartProducts cp JOIN products p ON cp.pId = p.pId WHERE cp.cartId = ?;";
+        String stmt = "SELECT cp.pId, cp.cartId, cp.quantity, p.price, p.pName, p.image FROM cartProducts cp JOIN products p ON cp.pId = p.pId WHERE cp.cartId = ?;";
         ResultSet resultSet = null;
         try{
             preparedStatement = connection.prepareStatement(stmt);
@@ -57,6 +57,7 @@ public class CartService {
                 cartBean.setCartId(resultSet.getInt("cartId"));
                 cartBean.setPrice(resultSet.getDouble("price"));
                 cartBean.setpName(resultSet.getString("pName"));
+                cartBean.setImage(resultSet.getBytes("image"));
                 cartProducts.add(cartBean);
             }
         } catch (SQLException e) {

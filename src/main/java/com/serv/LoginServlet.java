@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
             if(set.next()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("name", set.getString("fName"));
+                session.setAttribute("cartId", set.getString("cartId"));
                 dispatcher = request.getRequestDispatcher("index.jsp");
             }
             else

@@ -1,3 +1,12 @@
+<%
+    if(session.getAttribute("name") == null) {
+        response.sendRedirect("login_register.jsp");
+    }
+%>
+<%@ page import="com.Service.CartService"%>
+<%@ page import="com.beans.CartBean"%>
+<%@ page import="java.util.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +23,24 @@
 <div class="header">
 <%@include file="navbar.jsp"%>
 
+<!--getting cart Items-->
+<%
+    int cartId = Integer.parseInt((String)session.getAttribute("cartId"));
+    CartService cartService = new CartService();
+    List<CartBean> cartItems = new ArrayList<CartBean>();
+    cartItems = cartService.getAllCartItems(1);
 
+    double subTotal=0;
+    double total=0;
 
- <!---- cart item details---->
+    for(CartBean bean : cartItems){
+        out.println(bean.getpName());
+        out.println(bean.getQuantity());
+
+    }
+%>
+
+    
     <div class="small-container  cart-page">
 
         <table>
@@ -25,123 +49,96 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="image\buy-1.jpg" >
-                        <div>
-                            <p>Red Printed Tshirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="removeProduct?cartId=1&pId=1">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50</td>
-            </tr>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="image\buy-2.jpg" >
-                        <div>
-                            <p>Red Printed Tshirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50</td>
-            </tr>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="image\buy-3.jpg" >
-                        <div>
-                            <p>Red Printed Tshirt</p>
-                            <small>Price: $70.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$70</td>
-            </tr>
-        </table>
-        <div class="total-price">
+            <%
+            for(CartBean bean : cartItems) {
 
-            <table>
-                <tr>
-                    <td>Subtotal</td>
-                    <td>$200.00</td>
-                </tr>
-                <tr>
-                    <td>tax</td>
-                    <td>$35.00</td>
-                </tr>
+            %>
+
+            <tr>
+                <td>
+
+
+                    <div class="cart-info">
+                        <img src="showImage?pId=<%=bean.getpId() %>" width="60px" height="60px" >
+                        <div>
+                            <p><%=bean.getpName() %></p>
+                            <small><%=bean.getPrice() %></small>
+                            <br>
+                            <a href="removeProduct?cartId=<%=bean.getCartId() %>&pId=<%=bean.getpId() %>">Remove</a>
+                        </div>
+                    </div>
+                </td>
+                <td><input type="number" value="1"></td>
+                <td><%
+                        subTotal = bean.getQuantity() *  bean.getPrice();
+                        total += subTotal;
+                    %> &#8377; <%=subTotal%></td>
+            </tr>
+            <%
+                }
+            %>
+<!--            <tr>-->
+<!--                <th>Product</th>-->
+<!--                <th>Quantity</th>-->
+<!--                <th>Subtotal</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <div class="cart-info">-->
+<!--                        <img src="image\buy-2.jpg" >-->
+<!--                        <div>-->
+<!--                            <p>Red Printed Tshirt</p>-->
+<!--                            <small>Price: $50.00</small>-->
+<!--                            <br>-->
+<!--                            <a href="">Remove</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                <td><input type="number" value="1"></td>-->
+<!--                <td>$50</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>Product</th>-->
+<!--                <th>Quantity</th>-->
+<!--                <th>Subtotal</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <div class="cart-info">-->
+<!--                        <img src="image\buy-3.jpg" >-->
+<!--                        <div>-->
+<!--                            <p>Red Printed Tshirt</p>-->
+<!--                            <small>Price: $70.00</small>-->
+<!--                            <br>-->
+<!--                            <a href="">Remove</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                <td><input type="number" value="1"></td>-->
+<!--                <td>$70</td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <div class="total-price">-->
+
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td>Subtotal</td>-->
+<!--                    <td>$200.00</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>tax</td>-->
+<!--                    <td>$35.00</td>-->
+<!--                </tr>-->
                 <tr>
                     <td>Total</td>
-                    <td>$230.00</td>
+                    <td> <p style="text-align: right;"></p>&#8377;<%=total%></p></td>
                 </tr>
             </table>
         </div>
     </div>
     
    <!-------footer-->
-   <div class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="footer-col-1">
-                <h3> Download Our App</h3>
-                <p> Download App for Android and ios mobile phone</p>
-                 <div class="app-logo">
-                    <img src="image\play-store.png" >
-                    <img src="image\app-store.png" >
-                 </div>
-            </div>
-            <div class="footer-col-2">
-                <img src="image\logo-white.png" >
-                <p> Our Purpose Is To Sustainably Make Pleasure And
-                    Benefits of Sports Accessible to the Many
-                </p>
-            </div>
-            <div class="footer-col-3">
-                <h3> Usefull Link</h3>
-                <ul>
-                    <li>Coupons</li>
-                    <li>Blogpost</li>
-                    <li>Return policy</li>
-                    <li>Join Affiliate</li>
-                </ul>
-            </div>
-            <div class="footer-col-4">
-                <h3> Follow us</h3>
-                <ul>
-                    <li>Facebook</li>
-                    <li>Twitter</li>
-                    <li>Instagram</li>
-                    <li>Youtube</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <p class="copyright">copyright 2023 - Easy tutorials </p>
-    </div>
-  </div>
-</div>
+    <%@include file="footer.html"%>
 
  <!------------------js for toggle menu---------->
   <script>

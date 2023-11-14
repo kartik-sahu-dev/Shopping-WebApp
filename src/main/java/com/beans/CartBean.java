@@ -5,6 +5,16 @@ public class CartBean {
     int pId;
     int quantity;
     double price;
+    String pName;
+    byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public String getpName() {
         return pName;
@@ -14,7 +24,6 @@ public class CartBean {
         this.pName = pName;
     }
 
-    String pName;
 
 
     public double getPrice() {

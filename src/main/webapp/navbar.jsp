@@ -30,7 +30,7 @@
                         <li><a href="Durgesh19.jsp">DurgeshTesting</a></li>
                     </ul>
                 </nav>
-                <a href="userCart.jsp">
+                <a href="userCart.jsp?cartId=1">
                     <img src="image\cart.png" alt="cart" width="30px" height="30px" >
                 </a>
                 <img src="image\menu.png" class="menu-icon" onclick="menutoggle()">

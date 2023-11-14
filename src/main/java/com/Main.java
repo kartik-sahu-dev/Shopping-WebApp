@@ -23,12 +23,15 @@ public class Main {
 //        }
 
 
-        CartService cart = new CartService();
+//        CartService cart = new CartService();
+//        cart.addToCart(1,12,4);
 //        cart.addToCart(1,14,4);
-        List<CartBean> cartItems = cart.getAllCartItems(1);
-        for(CartBean bean : cartItems){
-            System.out.println(bean.getpName());
-            System.out.println(bean.getQuantity());
-        }
+//        cart.addToCart(1,13,4);
+//        cart.addToCart(1,15,4);
+//        List<CartBean> cartItems = cart.getAllCartItems(1);
+//        for(CartBean bean : cartItems){
+//            System.out.println(bean.getpName());
+//            System.out.println(bean.getQuantity());
+
     }
 }
