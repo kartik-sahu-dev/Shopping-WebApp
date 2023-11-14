@@ -19,7 +19,7 @@ response.sendRedirect("login_register.jsp");
 <div class="header">
         <%@include file="navbar.jsp"%>
 
-
+    <div class="container">
         <div class="row">
             <div class="col-2">
                 <h1>Give Your Workout <br>A New Style!</h1>
@@ -33,7 +33,7 @@ response.sendRedirect("login_register.jsp");
                 <img src="image\image1.png" alt="IMAGE">
             </div>
         </div>
-
+    </div>
 </div>
 <!------- featured categories--------->
 <div class="categories">
