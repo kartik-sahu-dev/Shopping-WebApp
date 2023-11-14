@@ -19,13 +19,6 @@
     <div class="header">
         <%@include file="adminNavbar.jsp"%>
         <div class="container">
-<!--            <div class="navbar">-->
-<!--                <div class="logo">-->
-
-<!--                </div>-->
-<!--            </div>-->
-
-            <br>
             <div class="container admin ">
                 <!--first row-->
                 <div class="row mt-2 ">
@@ -35,7 +28,7 @@
                             <div class="card-body text-center" >
                                 <img  style="max-width: 125px;" class="img-fluid" src="image\team.png" >
 <!--                                <h1 style="color: red;">2333232</h1>-->
-                                <h1>USERS</h1>
+                                <h2>USERS</h2>
                             </div>
                         </div>
                     </div>
@@ -45,7 +38,7 @@
                             <div class="card-body text-center"   >
                                 <img  style="max-width: 125px;" class="img-fluid" src="image\cat.png" >
 <!--                                <h1 style="color: red;">2333232</h1>-->
-                                <h1>CATEGORIES</h1>
+                                <h2>CATEGORIES</h2>
                             </div>
                         </div>
 
@@ -57,7 +50,7 @@
                                 <div class="card-body text-center"  >
                                     <img  style="max-width: 125px;" class="img-fluid" src="image\add-product.png" >
 <!--                                    <h1 style="color: red;">2333232</h1>-->
-                                    <h1>PRODUCTS</h1>
+                                    <h2>PRODUCTS</h2>
 
                                 </div>
                             </div>
@@ -66,7 +59,7 @@
 
                  </div>
                 <!--second row-->
-                <div class="row mt-1">
+                <div class="row mt-2">
                     <!--first column-->
                     <div class="col-6">
                         <!--first box-->
@@ -74,23 +67,23 @@
                             <div class="card-body text-center" data-toggle="modal" data-target="#add-product">
                                 <img  style="max-width: 125px;" class="img-fluid" src="image\add-product.png" >
 <!--                                <h1 style="color: red;">2333232</h1>-->
-                                <h1>ADD PRODUCTS</h1>
+                                <h2>ADD PRODUCTS</h2>
                             </div>
                         </div>
                     </div>
                     <!--second column-->
                     <div class="col-6">
-                        <div class="card" data-toggle="modal" data-target="#add-Category">
-                            <div class="card-body text-center" >
+                        <div class="card">
+                            <div class="card-body text-center"  data-toggle="modal" data-target="#add-Category">
                                 <img  style="max-width: 125px;" class="img-fluid" src="image\add-category.png" >
 <!--                                <h1 style="color: red;">2333232</h1>-->
-                                <h1>ADD CATEGORY</h1>
+                                <h2>ADD CATEGORY</h2>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
+
             </div>
 
 
@@ -218,6 +211,7 @@
                 </div>
             </div>
         </div>
+        <br>
     </div>
     <!--footer-->
     <%@include file="footer.html"%>

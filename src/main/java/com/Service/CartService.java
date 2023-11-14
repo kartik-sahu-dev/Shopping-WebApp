@@ -11,7 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartService {
-    public void addToCart(){
+    public void addToCart(int cartId, int productId, int quantity){
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        String stmt = "INSERT INTO cartProducts (cartId, pId, quantity) VALUES (?,?,?)";
+        conn = DataBase.getConnection();
+        try {
+            preparedStatement = conn.prepareStatement(stmt);
+            preparedStatement.setInt(1,cartId);
+            preparedStatement.setInt(2,productId);
+            preparedStatement.setInt(3,quantity);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DataBase.closeConnection(conn);
+            DataBase.closeConnection(preparedStatement);
+        }
 
     }
     public String addProductToCart(String cartId, String prodId, int prodQty){
@@ -26,7 +43,7 @@ public class CartService {
         List<CartBean> cartProducts = new ArrayList<>();
         Connection connection = DataBase.getConnection();
         PreparedStatement preparedStatement = null;
-        String stmt = "SELECT * FROM cartproducts WHERE cartId=?";
+        String stmt = "SELECT cp.pId, cp.cartId, cp.quantity, p.price, p.pName FROM cartProducts cp JOIN products p ON cp.pId = p.pId WHERE cp.cartId = ?;";
         ResultSet resultSet = null;
         try{
             preparedStatement = connection.prepareStatement(stmt);
@@ -38,6 +55,9 @@ public class CartService {
                 cartBean.setpId((resultSet.getInt("pId")));
                 cartBean.setQuantity(resultSet.getInt("quantity"));
                 cartBean.setCartId(resultSet.getInt("cartId"));
+                cartBean.setPrice(resultSet.getDouble("price"));
+                cartBean.setpName(resultSet.getString("pName"));
+                cartProducts.add(cartBean);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

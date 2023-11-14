@@ -6,6 +6,16 @@ public class CartBean {
     int quantity;
     double price;
 
+    public String getpName() {
+        return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+
+    String pName;
+
 
     public double getPrice() {
         return price;
