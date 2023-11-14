@@ -27,6 +27,8 @@
                 <li><a href="">About</a></li>
                 <li><a href="logout">Logout</a></li>
                 <li><a href="adminHome.jsp">Admin</a></li>
+                <li><a href="Durgesh19.jsp">DurgeshTesting</a></li>
+
             </ul>
         </nav>
         <img src="image\cart.png" alt="cart" width="30px" height="30px">
