@@ -6,13 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
 
     public List<String> getAllCategories(){
-        List<String> categories = null;
-        Connection connection = null;
+        List<String> categories = new ArrayList<>();
+        Connection connection = DataBase.getConnection();
         PreparedStatement ps = null;
         ResultSet  resultSet = null;
         String stmt = "SELECT categoryName FROM category;";
