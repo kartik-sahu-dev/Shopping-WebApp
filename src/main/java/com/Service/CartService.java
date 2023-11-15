@@ -31,11 +31,28 @@ public class CartService {
         }
 
     }
-    public String addProductToCart(String cartId, String prodId, int prodQty){
+    public String addProductToCart(int cartId, int prodId, int prodQty){
         return "";
     }
 
-    public String updateProductToCart(String userId, String prodId, int prodQty){
+    public String updateProductToCart(int userId, int prodId, int prodQty){
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        String stmt = "UPDATE cartProducts SET quantity =? WHERE pId =? AND cartId =?";
+        conn = DataBase.getConnection();
+        try {
+            preparedStatement = conn.prepareStatement(stmt);
+            preparedStatement.setInt(1,prodQty);
+            preparedStatement.setInt(2,prodId);
+            preparedStatement.setInt(3,userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            DataBase.closeConnection(conn);
+            DataBase.closeConnection(preparedStatement);
+        }
+
         return "";
     }
 

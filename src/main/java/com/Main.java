@@ -23,11 +23,11 @@ public class Main {
 //        }
 
 
-//        CartService cart = new CartService();
-//        cart.addToCart(1,12,4);
-//        cart.addToCart(1,14,4);
-//        cart.addToCart(1,13,4);
-//        cart.addToCart(1,15,4);
+        CartService cart = new CartService();
+        cart.addToCart(4,12,4);
+        cart.addToCart(4,14,4);
+        cart.addToCart(4,13,4);
+        cart.addToCart(4,15,4);
 //        List<CartBean> cartItems = cart.getAllCartItems(1);
 //        for(CartBean bean : cartItems){
 //            System.out.println(bean.getpName());

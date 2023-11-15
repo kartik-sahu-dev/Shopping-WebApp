@@ -6,6 +6,7 @@
 <%@ page import="com.Service.CartService"%>
 <%@ page import="com.beans.CartBean"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.lang.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,23 +29,21 @@
     int cartId = Integer.parseInt((String)session.getAttribute("cartId"));
     CartService cartService = new CartService();
     List<CartBean> cartItems = new ArrayList<CartBean>();
-    cartItems = cartService.getAllCartItems(1);
+    cartItems = cartService.getAllCartItems(cartId);
 
     double subTotal=0;
     double total=0;
+    int i = 1;
 
-    for(CartBean bean : cartItems){
-        out.println(bean.getpName());
-        out.println(bean.getQuantity());
 
-    }
 %>
 
-    
-    <div class="small-container  cart-page">
+
+    <div class="small-container ">
 
         <table>
             <tr>
+                <th>No.</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
@@ -55,6 +54,8 @@
             %>
 
             <tr>
+                <td style="text-align: center;"><%=i%></td>
+
                 <td>
 
 
@@ -68,8 +69,16 @@
                         </div>
                     </div>
                 </td>
-                <td><input type="number" value="1"></td>
+
+                <td>
+                    <button onclick="updateCart(cartId,pId,minus);">-</button>
+                    <input type="number" value="<%=bean.getQuantity()%>" min="1">
+                    <button onclick="updateCart(cartId,pId,plus);">+</button>
+
+                </td>
+
                 <td><%
+                        i++;
                         subTotal = bean.getQuantity() *  bean.getPrice();
                         total += subTotal;
                     %> &#8377; <%=subTotal%></td>
@@ -77,66 +86,15 @@
             <%
                 }
             %>
-<!--            <tr>-->
-<!--                <th>Product</th>-->
-<!--                <th>Quantity</th>-->
-<!--                <th>Subtotal</th>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="cart-info">-->
-<!--                        <img src="image\buy-2.jpg" >-->
-<!--                        <div>-->
-<!--                            <p>Red Printed Tshirt</p>-->
-<!--                            <small>Price: $50.00</small>-->
-<!--                            <br>-->
-<!--                            <a href="">Remove</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                <td><input type="number" value="1"></td>-->
-<!--                <td>$50</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <th>Product</th>-->
-<!--                <th>Quantity</th>-->
-<!--                <th>Subtotal</th>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="cart-info">-->
-<!--                        <img src="image\buy-3.jpg" >-->
-<!--                        <div>-->
-<!--                            <p>Red Printed Tshirt</p>-->
-<!--                            <small>Price: $70.00</small>-->
-<!--                            <br>-->
-<!--                            <a href="">Remove</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--                <td><input type="number" value="1"></td>-->
-<!--                <td>$70</td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--        <div class="total-price">-->
-
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td>Subtotal</td>-->
-<!--                    <td>$200.00</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>tax</td>-->
-<!--                    <td>$35.00</td>-->
-<!--                </tr>-->
                 <tr>
-                    <td>Total</td>
-                    <td> <p style="text-align: right;"></p>&#8377;<%=total%></p></td>
+                    <td style="text-align: right;" colspan="2"><strong>Total</strong></td>
+                    <td > <p style="text-align: right;">&#8377; <%=total%></p></td>
                 </tr>
             </table>
         </div>
+    <br><br>
     </div>
-    
+
    <!-------footer-->
     <%@include file="footer.html"%>
 
@@ -155,6 +113,19 @@
     {
         MenuItems.style.maxHeight="0px";
     }
+
+    <!--update to cart-->
+    function updateCart(cartId, pId, action){
+
+        fetch('/updateCartQuantity?cartId=${cartId}&pId=${pId}&action=${action})
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('quantity-${cartItemId').innerText = data.quantity;
+                })
+                .catch(error => console.error('Error updating quantity', error));
+                }
+
+
   </script>
 
 

@@ -25,8 +25,7 @@
     <div class="container">
         <div class="table-responsive ">
             <table class="table table-hover table-sm">
-                <thead
-                        style="background-color: #e2e2e2; color: white; font-size: 18px;">
+                <thead style="background-color: #e2e2e2; color: white; font-size: 18px;">
                 <tr>
                     <th>Image</th>
                     <th>ProductId</th>
