@@ -18,11 +18,8 @@ import java.util.logging.Logger;
 @WebServlet("/addCategory")
 public class AddCategoryServlet extends HttpServlet {
     Connection con = null;
-    private static final Logger logger = Logger.getLogger(AddCategoryServlet.class.getName());
-
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        logger.info("Entering doPost method");
 
         System.out.println("heelo");
         String categoryName;
@@ -63,7 +60,6 @@ public class AddCategoryServlet extends HttpServlet {
 //            throw new RuntimeException(e);
 //        }
         res.sendRedirect("adminHome.jsp");
-        logger.info("Exiting doPost method");
 
     }
 }

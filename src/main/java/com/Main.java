@@ -1,13 +1,6 @@
 package com;
 
 import com.Service.CartService;
-import com.Service.Category;
-import com.Service.ProductService;
-import com.beans.CartBean;
-import com.beans.ProductBean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 

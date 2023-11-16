@@ -1,5 +1,10 @@
 
 
+<%@ page import="java.util.*"%>
+<%@ page import="com.Service.*"%>
+<%@ page import="com.beans.*"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -182,10 +187,18 @@
                                 </div>
                                 <!---Product categories--->
                                 <div class="form-group">
-                                    <select name="category" class="form-control">
-                                        <option value="laptop">Laptop</option>
-                                        <option value="laptop">Laptop</option>
-                                        <option value="laptop">Laptop</option>
+                                    <select name="categoryId" class="form-control" >
+                                        <%!
+                                            CategoryService categoryService = new CategoryService();
+                                            List<CategoryBean> categories = categoryService.getAllCategories();
+                                        %>
+                                        <%
+                                            for(CategoryBean categoryBean : categories) {
+                                        %>
+                                            <option value="<%=categoryBean.getCategoryId()%>"><%=categoryBean.getCategoryName()%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
                                 </div>
                                 <!---Product file--->

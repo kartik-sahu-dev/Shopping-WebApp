@@ -20,7 +20,11 @@ public class ProductService {
 
         try {
 
-            ps = con.prepareStatement("select * from products where pId=?");
+            ps = con.prepareStatement("select p.*,c.categoryName\n" +
+                    "from products p\n" +
+                    "join category c\n" +
+                    "on p.categoryId = c.categoryId\n" +
+                    "where p.pId=?;");
             ps.setInt(1,pId);
             rs = ps.executeQuery();
             if(rs.next()){
@@ -52,7 +56,11 @@ public class ProductService {
 
         try {
 
-            ps = con.prepareStatement("select * from products");
+            ps = con.prepareStatement("select p.*,c.categoryName\n" +
+                    "from products p\n" +
+                    "join category c\n" +
+                    "on p.categoryId = c.categoryId;");
+
             rs = ps.executeQuery();
             while(rs.next()){
                 ProductBean product = new ProductBean();
@@ -78,8 +86,7 @@ public class ProductService {
         }
         return products;
     }
-    public List<ProductBean> getAllProductByCategory(String category){
-        category = category.toLowerCase();
+    public List<ProductBean> getAllProductByCategory(int categoryId){
         List<ProductBean> products = new ArrayList<>();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -87,8 +94,11 @@ public class ProductService {
 
         try {
 
-            ps = con.prepareStatement("select * from products where category = ?");
-            ps.setString(1,category);
+            ps = con.prepareStatement("select p.*,c.categoryName\n" +
+                    "from products p\n" +
+                    "join category c\n" +
+                    "on p.categoryId = ?;");
+            ps.setInt(  1,categoryId);
             rs = ps.executeQuery();
             while(rs.next()){
                 ProductBean product = new ProductBean();

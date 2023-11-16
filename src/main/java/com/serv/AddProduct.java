@@ -23,15 +23,15 @@ public class AddProduct extends HttpServlet {
     Connection con = null;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String pName,category,descrip;
+        String pName,descrip;
         Double price;
-        int stock,rowInserted;
+        int stock,categoryId,rowInserted;
         InputStream inputStream = null;
         PreparedStatement ps = null;
 
 
         pName = req.getParameter("pName");
-        category = req.getParameter("category");
+        categoryId = Integer.parseInt(req.getParameter("categoryId"));
         price = Double.parseDouble(req.getParameter("price"));
         stock = Integer.parseInt(req.getParameter("stock"));
         descrip = req.getParameter("descrip");
@@ -48,11 +48,11 @@ public class AddProduct extends HttpServlet {
             }
 
             con = DataBase.getConnection();
-            String stmt = "insert into products (category,pName,price,descrip,stock,image) values (?,?,?,?,?,?);";
+            String stmt = "insert into products (categoryId,pName,price,descrip,stock,image) values (?,?,?,?,?,?);";
 
             try{
                 ps = con.prepareStatement(stmt);
-                ps.setString(1, category);
+                ps.setInt(1, categoryId);
                 ps.setString(2, pName);
                 ps.setDouble(3, price);
                 ps.setString(4, descrip);
