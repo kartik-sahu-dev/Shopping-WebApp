@@ -43,7 +43,7 @@
 
                 <%!
                  ProductService productService = new ProductService();
-                 List<ProductBean> products = new ArrayList<ProductBean>();
+                 List<ProductBean> products = new ArrayList();
                  products = productService.getAllProduct();
                  %>
                     <%
