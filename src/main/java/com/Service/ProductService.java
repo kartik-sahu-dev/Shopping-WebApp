@@ -64,14 +64,14 @@ public class ProductService {
             rs = ps.executeQuery();
             while(rs.next()){
                 ProductBean product = new ProductBean();
-                product.setpId(rs.getInt(1));
-                product.setCategory(rs.getString(2));
-                product.setpName(rs.getString(3));
-                product.setPrice(rs.getDouble(4));
-                product.setDescrip(rs.getString(5));
-                product.setQuantity(rs.getInt(6));
-                product.setLikes(rs.getInt(7));
-                product.setImage(rs.getBytes(8));
+                product.setpId(rs.getInt("pId"));
+                product.setCategory(rs.getString("categoryName"));
+                product.setpName(rs.getString("pName"));
+                product.setPrice(rs.getDouble("price"));
+                product.setDescrip(rs.getString("Descrip"));
+                product.setQuantity(rs.getInt("stock"));
+                product.setLikes(rs.getInt("likes"));
+                product.setImage(rs.getBytes("image"));
 
                 products.add(product);
 

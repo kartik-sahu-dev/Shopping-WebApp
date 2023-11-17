@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.Service.ProductService"%>
 <%@ page import="com.beans.ProductBean"%>
+<%@ page import="com.beans.CategoryBean"%>
 <%@ page import="com.Service.CategoryService"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
@@ -14,24 +15,22 @@
 <body>
 <%@include file="navbar.jsp"%>
 <div class="row">
-    <%
+    <%!
     ProductService prd = new ProductService();
-    List
-    <ProductBean> list = prd.getAllProduct();
+    List<ProductBean> list = prd.getAllProduct();
 
-        Category cat = new Category();
-        List
-        <String> list1 = cat.getAllCategories();
+        CategoryService cat = new CategoryService();
+        List<CategoryBean> categories = cat.getAllCategories();
             %>
 
             <!--        Show Categories-->
             <div class="col-md-2">
                 <%
-                for(String str:list1){
+                for(CategoryBean category:categories){
 
                 %>
                 <div>
-                    <p class="product-info"><%= str %></p>
+                    <p class="product-info"><%= category.getCategoryName() %></p>
                 </div>
                 <%
                 }
