@@ -40,11 +40,11 @@
                 </thead>
                 <tbody style="background-color: white; font-size: 16px;">
 
-                    <%!
-                         ProductService productService = new ProductService();
-                         List<ProductBean> products = new ArrayList<ProductBean>();
-
-                    %>
+                               <%!
+                 ProductService productService = new ProductService();
+                 List<ProductBean> products = new ArrayList();
+                 products = productService.getAllProduct();
+                 %>
                     <%
                          products = productService.getAllProduct();
                          for (ProductBean product : products) {
