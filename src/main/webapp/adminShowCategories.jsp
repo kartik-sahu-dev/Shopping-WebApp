@@ -1,5 +1,4 @@
 <%@ page import="com.beans.*,com.serv.*,com.Service.*,java.util.* ,java.io.*"%>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +6,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Products</title>
+    <title>All Categories</title>
+
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -21,50 +21,37 @@
 <body>
 <div class="header">
     <%@include file="adminNavbar.jsp" %>
-     <p style="color: green; font-size: 24px; font-weight: bold; " class="text-center">Products Stock</p>
+    <p style="color: green; font-size: 24px; font-weight: bold; " class="text-center">Available Categories</p>
     <div class="container">
         <div class="table-responsive ">
             <table class="table table-hover table-sm">
                 <thead style="background-color: #e2e2e2; color: white; font-size: 18px;">
                 <tr>
-
-                    <th>Image</th>
-                    <th>ProductId</th>
+                    <th>CategoryId</th>
                     <th>Name</th>
-                    <th>Type</th>
-                    <th>Price</th>
-    <!--                <th>Sold Qty</th>-->
-                    <th>Stock Qty</th>
+                    <th>Description</th>
                     <th colspan="2" style="text-align: center">Actions</th>
                 </tr>
                 </thead>
                 <tbody style="background-color: white; font-size: 16px;">
 
-                    <%!
-                         ProductService productService = new ProductService();
-                         List<ProductBean> products = new ArrayList<ProductBean>();
+                <%!
+                CategoryService categoryService = new CategoryService();
+                List<CategoryBean> categories = new ArrayList<CategoryBean>();
 
                     %>
                     <%
-                         products = productService.getAllProduct();
-                         for (ProductBean product : products) {
+                    categories = categoryService.getAllCategories();
+                    for (CategoryBean category : categories) {
                     %>
 
-                    <tr>
+                    <tr> 
+                        <td style="text-align: center;"><%=category.getCategoryId()%></td>
+                        <td><%=category.getCategoryName()%></td>
 
-                        <td><img src="./showImage?pId=<%=product.getpId()%>"
-                                 style="width: 50px; height: 50px;"></td>
-                        <td><a
-                                href="./updateProduct.jsp?pId=<%=product.getpId()%>"><%=product.getpId()%></a></td>
-                        <%
-                        String name = product.getpName();
-                        name = name.substring(0, Math.min(name.length(), 25)) + "..";
-                        %>
-                        <td><%=name%></td>
-                        <td><%=product.getCategory()%></td>
-                        <td><%=product.getPrice()%></td>
-                         <!-- <td> sold item</td> -->
-                        <td><%=product.getQuantity()%></td>
+
+                        <td><%=category.getCategoryDescription()%></td>
+
                         <td>
                             <form method="post">
                                 <button type="submit"
@@ -74,7 +61,7 @@
                         </td>
                         <td>
                             <form method="post">
-                                <button type="submit" formaction="deleteProduct?pId=<%=product.getpId()%>"
+                                <button type="submit" formaction=""
                                         class="btn btn-danger">Remove</button>
                             </form>
                         </td>
@@ -85,7 +72,7 @@
                     }
                     %>
                     <%
-                    if (products.size() == 0) {
+                    if (categories.size() == 0) {
                     %>
                     <tr style="background-color: grey; color: white;">
                         <td colspan="7" style="text-align: center;">No Items
@@ -100,7 +87,7 @@
         </div>
     </div>`
 </div>
-<!--footer-->
-<%@include file="footer.html"%>
+
+<%@ include file="footer.html"%>
 </body>
 </html>

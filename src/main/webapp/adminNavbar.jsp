@@ -24,7 +24,7 @@
             <ul id="MenuItems">
                 <li><a href="adminHome.jsp">Home</a></li>
                 <li><a href="adminStock.jsp">Products</a></li>
-                <li><a href="">About</a></li>
+                <li><a href="adminShowCategories.jsp">Categories</a></li>
                 <li><a href="logout">Logout</a></li>
                 <li><a href="adminHome.jsp">Admin</a></li>
 
