@@ -7,7 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Base64;
+
 
 
 @WebServlet("/register")
@@ -21,6 +25,31 @@ public class RegistrationServlet extends HttpServlet {
         String fName = request.getParameter("fName");
         String lName = request.getParameter("lName");
         String pword = request.getParameter("pword");
+
+        try {
+            MessageDigest messDig = MessageDigest.getInstance("MD5");
+            messDig.update(pword.getBytes());
+            byte[] resultByteArray =  messDig.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for(byte b:resultByteArray){
+                sb.append(String.format("%02x",b));
+            }
+
+            pword = sb.toString();
+        }catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
 //        String rpword = request.getParameter("rpword");
 //        String bdate = request.getParameter("bdate");
 //        String gender = request.getParameter("gender");
