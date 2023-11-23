@@ -17,17 +17,15 @@
 
         <div class="header">
             <div class="navbar">
-                <div class="logo">
-                    <img src="image\logo.png" alt="LOGO" width="125px">
-                </div>
+
                 <nav>
                     <ul id="MenuItems">
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="logout">Logout</a></li>
-                        <li><a href="adminHome.jsp">Admin</a></li>
-                        <li><a href="Durgesh19.jsp">DurgeshTesting</a></li>
+<!--                        <li><a href="adminHome.jsp">Admin</a></li>-->
+<!--                        <li><a href="Durgesh19.jsp">DurgeshTesting</a></li>-->
                     </ul>
                 </nav>
                 <a href="userCart.jsp?cartId=1">

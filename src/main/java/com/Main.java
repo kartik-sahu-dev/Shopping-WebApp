@@ -17,10 +17,10 @@ public class Main {
 
 
         CartService cart = new CartService();
-        cart.addToCart(4,12,4);
-        cart.addToCart(4,14,4);
-        cart.addToCart(4,13,4);
-        cart.addToCart(4,15,4);
+        cart.addToCart(6,12,4);
+        cart.addToCart(6,14,2);
+        cart.addToCart(6,13,3);
+        cart.addToCart(6,15,5);
 //        List<CartBean> cartItems = cart.getAllCartItems(1);
 //        for(CartBean bean : cartItems){
 //            System.out.println(bean.getpName());
